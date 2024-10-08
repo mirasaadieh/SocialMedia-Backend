@@ -136,3 +136,4 @@ C:\Users\Toshiba\Desktop\Social Media\SocialMedia\SocialMedia\obj\Debug\net8.0\S
 C:\Users\Toshiba\Desktop\Social Media\SocialMedia\SocialMedia\obj\Debug\net8.0\ref\SocialMedia.dll
 C:\Users\Toshiba\Desktop\Social Media\SocialMedia\SocialMedia\bin\Debug\net8.0\Firebase.Storage.dll
 C:\Users\Toshiba\Desktop\Social Media\SocialMedia\SocialMedia\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Toshiba\Desktop\Social Media\SocialMedia\SocialMedia\obj\Debug\net8.0\SocialMedia.sourcelink.json

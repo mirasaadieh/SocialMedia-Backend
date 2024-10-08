@@ -27,9 +27,9 @@ builder.Services.Configure<IISServerOptions>(options =>
 });
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp", builder =>
+    options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:4200")
+        builder.WithOrigins("https://social-media-frontend-2.vercel.app")
                .AllowAnyHeader()
                .AllowAnyMethod()
                .AllowCredentials();
@@ -37,7 +37,7 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
-app.UseCors("AllowAngularApp");
+app.UseCors("AllowSpecificOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
