@@ -6,11 +6,11 @@ namespace SocialMedia
     {
         public async Task BroadcastLikeCount(int postId, int likeCount)
         {
-            await Clients.All.SendAsync("ReceiveLikeCount", postId, likeCount);
+            await Clients.All.SendAsync("ReceiveLikeCountUpdate", postId, likeCount);
         }
         public async Task BroadcastCommentCount(int postId, int commentCount)
         {
-            await Clients.All.SendAsync("ReceiveCommentCount", postId, commentCount);
+            await Clients.All.SendAsync("ReceiveCommentCountUpdate", postId, commentCount);
         }
     }
 }
