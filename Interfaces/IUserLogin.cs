@@ -6,6 +6,7 @@ namespace SocialMedia.Interfaces
     public interface IUserLogin
     {
         public ICollection<UserLogin> GetUsers();
+        public ICollection<UserLogin> GetOtherUsers(int loggedInUserId);
         public ICollection<UsersPosts> GetOtherUsersPosts(int loggedInUserId);
 
         public UserLogin GetUser(int id);

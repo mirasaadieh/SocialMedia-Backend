@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialMedia.Interfaces;
 using SocialMedia.Models;
 
 namespace SocialMedia.Controllers
 {
+    //[Route("api/test")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
@@ -13,6 +15,12 @@ namespace SocialMedia.Controllers
         {
             _user = user;
         }
+        //[HttpGet("test")]
+        //public IActionResult test()
+        //{
+        //    return Ok("Test success");
+        //}
+      
         [HttpGet("allUsers")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UserLogin>))]
         public IActionResult GetUsers()
@@ -231,6 +239,25 @@ namespace SocialMedia.Controllers
             }
             return Ok(posts);
         }
+        [HttpGet("GetOtherUsers/{loggedInUserId}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<UserLogin>))]
+        [ProducesResponseType(404)]
+        public IActionResult GetOtherUsers(int loggedInUserId)
+        {
+            var users = _user.GetOtherUsers(loggedInUserId);
+            Console.WriteLine($"Users count: {users.Count}");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // If no users are found, return 404
+            if ( users.Count == 0)
+            {
+                return NotFound(new { message = "No users found." });
+            }
+
+            return Ok(users); 
+        }
+
     }
-   
+
 }

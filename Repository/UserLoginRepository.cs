@@ -106,5 +106,10 @@ namespace SocialMedia.Repository
             return _context.UsersPosts.Where(post => post.UserId != loggedInUserId).ToList();
 
         }
+        public ICollection<UserLogin> GetOtherUsers(int loggedInUserId)
+        {
+            return _context.Users.Where(user => user.Id != loggedInUserId).ToList();
+
+        }
     }
 }
