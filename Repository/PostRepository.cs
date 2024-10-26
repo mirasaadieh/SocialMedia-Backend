@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Data;
 using SocialMedia.Entity.Views;
@@ -10,9 +11,12 @@ namespace SocialMedia.Repository
     public class PostRepository : IPosts
     {
         private readonly DataContext _context;
-        public PostRepository(DataContext context)
+        private readonly IHubContext<PostHub> _hubContext;
+
+        public PostRepository(DataContext context, IHubContext<PostHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
         public bool CreatePost(Post post)
         {
@@ -38,11 +42,16 @@ namespace SocialMedia.Repository
         public async Task<int> CountofLikesByPostId(int postId)
         {
             int count = await _context.Likes.Where(p =>p.PostId == postId).CountAsync();
+            // Broadcast the updated like count to all connected clients via SignalR
+            await _hubContext.Clients.All.SendAsync("ReceiveLikeCountUpdate", postId, count);
             return count;
         }
         public async Task<int> CountofCommentsByPostId(int postId)
         {
             int count = await _context.Comments.Where(p => p.PostId == postId).CountAsync();
+            // Broadcast the updated like count to all connected clients via SignalR
+            await _hubContext.Clients.All.SendAsync("ReceiveCommentCountUpdate", postId, count);
+
             return count;
         }
         public bool Save()
